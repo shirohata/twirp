@@ -103,13 +103,13 @@ func (g *generator) generateProtobufClient(file *descriptor.FileDescriptorProto,
 		g.printComments(comments, ``)
 		g.P(`*/`)
 	}
-	g.P(`class `, clientName(service), `(private val client: OkHttpClient, private val serverAddress: String) {`)
+	g.P(`class `, clientName(service), `(private val client: OkHttpClient, private val serverAddress: String, private val prefix: String = "/twirp") {`)
 
 	g.P(`    private val serviceName = `, strconv.Quote(fullServiceName(file, service)))
 	g.P()
 	g.P(`    private fun makeRequest(body: Message, method: String): ResponseBody {`)
 	g.P(`	    val request = Request.Builder()`)
-	g.P(`	        .url("$serverAddress/twirp/$serviceName/$method")`)
+	g.P(`	        .url("$serverAddress$prefix/$serviceName/$method")`)
 	g.P(`	        .post(body.toByteArray().toRequestBody())`)
 	g.P(`	        .header("Content-Type", "application/protobuf")`)
 	g.P(`	        .build()`)
