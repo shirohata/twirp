@@ -135,7 +135,7 @@ func (g *generator) generateProtobufClient(file *descriptor.FileDescriptorProto,
 
 		g.P(`    suspend fun `, methName, `(`, inputName, `: `, inputType, `): `, outputType, ` {`)
 		g.P(`        return withContext(Dispatchers.IO) {`)
-		g.P(`            val response = makeRequest(`, inputName, `, `, method.GetName(),`)`)
+		g.P(`            val response = makeRequest(`, inputName, `, "`, method.GetName(),`")`)
 		g.P(`            `, outputType, `.parseFrom(response.byteStream())`)
 		g.P(`        }`)
 		g.P(`    }`)
