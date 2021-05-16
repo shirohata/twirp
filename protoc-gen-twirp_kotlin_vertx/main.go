@@ -167,7 +167,7 @@ func (g *generator) generateProtobufClient(in *plugin.CodeGeneratorRequest, file
 		g.P(`            }`)
 		g.P(`        }`)
 		g.P(`    }`)
-		} else {
+	} else {
 		g.P(`    fun <Request : Message, Response : Message> Router.twirp(`)
 		g.P(`        path: String,`)
 		g.P(`        parser: Parser<Request>,`)
